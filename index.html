@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carte & Build — Web Version</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <h1>Carte &amp; Build</h1>
+      <div class="controls">
+        <button id="btn-nuova-partita" class="btn primary">Nuova Partita</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel panel--build">
+        <h2>Stato Giocatore</h2>
+        <div id="build" class="build">
+          <!-- valori dinamici -->
+        </div>
+
+        <div class="turno">
+          <div class="turno__row">
+            <span class="badge">Turno</span>
+            <span id="turno-num" class="turno__value">1</span>
+          </div>
+          <div class="turno__row">
+            <span class="badge">Dominante</span>
+            <span id="dominante" class="turno__value">—</span>
+          </div>
+          <div class="turno__row">
+            <span class="badge">Difficoltà</span>
+            <span id="difficolta" class="turno__value">—</span>
+          </div>
+          <div class="turno__row">
+            <span class="badge">Punteggio</span>
+            <span id="punteggio" class="turno__value">—</span>
+          </div>
+        </div>
+
+       <div class="azioni-gioco">
+			<div class="buttons">
+				<button id="btn-gioca" class="btn success">Gioca selezionate</button>
+				<button id="btn-salta" class="btn">Salta turno</button>
+				<button id="btn-next" class="btn" style="display:none;">Prossimo turno</button>
+			</div>
+		</div>
+
+
+        <div class="log" id="log">
+          <!-- messaggi dinamici -->
+        </div>
+      </section>
+
+      <section class="panel panel--carte">
+        <h2>Evento (7 carte)</h2>
+        <div id="evento" class="carte-grid"></div>
+
+        <h2>Carte Azione (5 carte) — clicca per selezionare</h2>
+        <div id="azioni" class="carte-grid selezionabili"></div>
+      </section>
+    </main>
+
+    <div id="overlay-gameover" class="overlay hidden">
+      <div class="modal">
+        <h2>🪦 GAME OVER</h2>
+        <p id="gameover-msg">Sei morto al turno —</p>
+        <div class="buttons center">
+          <button id="btn-restart" class="btn primary">Ricomincia</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <template id="tpl-carta">
+    <div class="carta">
+      <div class="carta__top">
+        <span class="carta__valore"></span>
+      </div>
+      <div class="carta__seme"></div>
+      <div class="carta__bottom">
+        <span class="carta__valore"></span>
+      </div>
+    </div>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
