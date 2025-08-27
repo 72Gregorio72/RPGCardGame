@@ -1,80 +1,72 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
   <meta charset="utf-8" />
+  <title>Dungeon Carte</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Carte & Build — Web Version</title>
-  <link rel="stylesheet" href="style.css" />
+  <link href="style.css" rel="stylesheet" />
 </head>
 <body>
   <div class="app">
-    <header class="topbar">
-      <h1>Carte &amp; Build</h1>
+    <div class="topbar">
+      <h1>Dungeon Carte</h1>
       <div class="controls">
-        <button id="btn-nuova-partita" class="btn primary">Nuova Partita</button>
+        <button id="btn-nuova" class="btn primary">Nuova Stanza</button>
+        <button id="btn-reshuffle" class="btn">Rimescola Mazzo</button>
       </div>
-    </header>
+    </div>
 
-    <main class="layout">
-      <section class="panel panel--build">
-        <h2>Stato Giocatore</h2>
-        <div id="build" class="build">
-          <!-- valori dinamici -->
-        </div>
+    <div class="layout">
+      <div class="panel panel--build">
+        <h2>Build</h2>
+        <div id="build" class="build"></div>
 
         <div class="turno">
           <div class="turno__row">
             <span class="badge">Turno</span>
-            <span id="turno-num" class="turno__value">1</span>
+            <span class="turno__value" id="turno">1</span>
           </div>
           <div class="turno__row">
-            <span class="badge">Dominante</span>
-            <span id="dominante" class="turno__value">—</span>
-          </div>
-          <div class="turno__row">
-            <span class="badge">Difficoltà</span>
-            <span id="difficolta" class="turno__value">—</span>
-          </div>
-          <div class="turno__row">
-            <span class="badge">Punteggio</span>
-            <span id="punteggio" class="turno__value">—</span>
+            <span class="badge">Mostri rimasti</span>
+            <span class="turno__value" id="mostri-rimasti">0</span>
           </div>
         </div>
 
-       <div class="azioni-gioco">
-			<div class="buttons">
-				<button id="btn-gioca" class="btn success">Gioca selezionate</button>
-				<button id="btn-salta" class="btn">Salta turno</button>
-				<button id="btn-next" class="btn" style="display:none;">Prossimo turno</button>
-			</div>
-		</div>
-
-
-        <div class="log" id="log">
-          <!-- messaggi dinamici -->
+        <div class="azioni-gioco">
+          <h2>Azioni (5 carte)</h2>
+          <div id="azioni" class="carte-grid"></div>
+          <div class="buttons">
+            <button id="btn-svuota-azione" class="btn danger">Scarta selezione</button>
+          </div>
         </div>
-      </section>
 
-      <section class="panel panel--carte">
-        <h2>Evento (7 carte)</h2>
-        <div id="evento" class="carte-grid"></div>
+        <div class="log" id="log"></div>
+      </div>
 
-        <h2>Carte Azione (5 carte) — clicca per selezionare</h2>
-        <div id="azioni" class="carte-grid selezionabili"></div>
-      </section>
-    </main>
-
-    <div id="overlay-gameover" class="overlay hidden">
-      <div class="modal">
-        <h2>🪦 GAME OVER</h2>
-        <p id="gameover-msg">Sei morto al turno —</p>
-        <div class="buttons center">
-          <button id="btn-restart" class="btn primary">Ricomincia</button>
-        </div>
+      <div class="panel">
+        <h2>Eventi (7 carte)</h2>
+        <div id="eventi" class="carte-grid selezionabili"></div>
       </div>
     </div>
   </div>
 
+  <!-- Modale Scelta Combattimento -->
+  <div id="modal-combat" class="overlay hidden">
+    <div class="modal">
+      <h3>Combatti il mostro</h3>
+      <p id="combat-desc"></p>
+      <div class="section">
+        <p class="muted" id="vincolo-seme"></p>
+        <div id="azioni-per-combat" class="carte-grid selezionabili"></div>
+      </div>
+      <div class="buttons center" style="margin-top:12px;">
+        <button id="btn-combat-senza" class="btn">Combatti senza carta</button>
+        <button id="btn-combat-annulla" class="btn danger">Annulla</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Template Carta -->
   <template id="tpl-carta">
     <div class="carta">
       <div class="carta__top">
@@ -87,6 +79,6 @@
     </div>
   </template>
 
-  <script src="script.js"></script>
+  <script src="game.js"></script>
 </body>
 </html>

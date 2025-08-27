@@ -1,54 +1,29 @@
 :root{
-  --bg: #0f1220;
-  --panel: #171a2b;
-  --panel-2: #1d2138;
-  --text: #e9ecff;
-  --muted: #a7b0d7;
-  --primary: #6c7cff;
-  --success: #17c964;
-  --accent: #ffd166;
-  --danger: #ff4d4f;
-  --card: #0c0f1c;
-  --card-border: #2a2f51;
-  --shadow: 0 10px 30px rgba(0,0,0,.35);
-  --radius-xl: 18px;
-  --radius-lg: 14px;
-  --radius-md: 12px;
+  --bg:#0f1220;
+  --panel:#171a2b;
+  --panel-2:#1d2138;
+  --text:#e9ecff;
+  --muted:#a7b0d7;
+  --primary:#6c7cff;
+  --success:#17c964;
+  --accent:#ffd166;
+  --danger:#ff4d4f;
+  --card:#0c0f1c;
+  --card-border:#2a2f51;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+  --radius-xl:18px;
+  --radius-lg:14px;
+  --radius-md:12px;
 }
 
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+  font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
   background: radial-gradient(1200px 600px at 70% -10%, #1a1f3a 0, #0e1120 60%) no-repeat, var(--bg);
-  color: var(--text);
+  color:var(--text);
 }
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 2px, transparent 2px),
-                    radial-gradient(rgba(108, 124, 255, 0.05) 1px, transparent 1px);
-  background-size: 40px 40px, 60px 60px;
-  animation: casinoMove 40s linear infinite;
-  z-index: 0;
-  pointer-events: none;
-}
-
-@keyframes casinoMove {
-  from { background-position: 0 0, 0 0; }
-  to   { background-position: 400px 400px, -300px 600px; }
-}
-
-/* alziamo il contenuto sopra */
-.app, .topbar, .layout, .overlay {
-  position: relative;
-  z-index: 1;
-}
-
-
 .app{max-width:1100px;margin:0 auto;padding:24px 16px}
 
 .topbar{
@@ -131,8 +106,7 @@ body::before {
   padding:8px;
   box-shadow: var(--shadow);
   position:relative; overflow:hidden;
-  height: 150px;
-  width: 110px;
+  height:150px; width:110px;
 }
 .carta::after{
   content:""; position:absolute; inset:0; pointer-events:none;
@@ -152,15 +126,34 @@ body::before {
 .club .carta__valore, .club .carta__seme{color:#28d79f}
 .spade .carta__valore, .spade .carta__seme{color:#6bb7ff}
 
-/* overlay gameover */
+/* overlay */
 .overlay{position:fixed; inset:0; background:rgba(5,7,15,.72); display:flex; align-items:center; justify-content:center}
 .hidden{display:none}
 .modal{
-  width:min(520px,90vw); background:linear-gradient(160deg,var(--panel),var(--panel-2));
+  width:min(620px,94vw); background:linear-gradient(160deg,var(--panel),var(--panel-2));
   border:1px solid #2a2f51; border-radius:20px; padding:24px; box-shadow:var(--shadow); text-align:center
 }
+.muted{color:var(--muted);font-size:14px}
 
-/* log */
+/* animazioni */
+@keyframes flip-card { from{transform:rotateY(0)} to{transform:rotateY(180deg)} }
+.carta.anim-flip{ animation: flip-card .6s; backface-visibility: hidden; }
+
+@keyframes highlight-card {
+  0% { box-shadow: 0 0 0 0 #6c7cff88; }
+  50% { box-shadow: 0 0 20px 12px #6c7cff88; }
+  100% { box-shadow: 0 0 0 0 #6c7cff88; }
+}
+.carta.anim-highlight{ animation: highlight-card .7s; }
+
+@keyframes score-bounce {
+  0% { transform: scale(1); color: inherit; }
+  25% { transform: scale(1.35); color: var(--success); }
+  60% { transform: scale(0.88);}
+  100% { transform: scale(1); color: inherit; }
+}
+.score-anim{ animation: score-bounce .6s; }
+
 .log{
   margin-top:10px; background:rgba(255,255,255,.02); border:1px solid var(--card-border);
   border-radius: var(--radius-lg); padding:10px; max-height:240px; overflow:auto; font-size:14px; color:var(--muted)
@@ -169,31 +162,3 @@ body::before {
 .log .ok{color:#9be2b2}
 .log .ko{color:#ff9aa6}
 .log .info{color:#e7e4ff}
-
-@keyframes flip-card {
-  from { transform: rotateY(0deg); }
-  to   { transform: rotateY(180deg); }
-}
-.carta.anim-flip {
-  animation: flip-card 0.6s;
-  backface-visibility: hidden;
-}
-
-@keyframes highlight-card {
-  0%   { box-shadow: 0 0 0 0 #6c7cff88; }
-  50%  { box-shadow: 0 0 20px 12px #6c7cff88; }
-  100% { box-shadow: 0 0 0 0 #6c7cff88; }
-}
-.carta.anim-highlight {
-  animation: highlight-card 0.7s;
-}
-
-@keyframes score-bounce {
-  0%   { transform: scale(1); color: inherit; }
-  25%  { transform: scale(1.35); color: var(--success); }
-  60%  { transform: scale(0.88);}
-  100% { transform: scale(1); color: inherit; }
-}
-.score-anim {
-  animation: score-bounce 0.6s;
-}
